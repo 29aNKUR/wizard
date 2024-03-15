@@ -22,8 +22,8 @@ function App() {
           maxWidth: '100px', 
           maxHeight: '100px', 
           backgroundColor: 'transparent', 
-          transition: 'left 0.05s linear, top 0.05s linear', // Smooth transition
-          transform: 'translate(-50%, -50%) scaleX(-1)', // Flip horizontally
+          transition: 'left 0.05s linear, top 0.05s linear', 
+          transform: 'translate(-50%, -50%) scaleX(-1)',
         }}
       />
     </div>
