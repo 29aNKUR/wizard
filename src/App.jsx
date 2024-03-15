@@ -1,23 +1,17 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import './App.css'; 
 import wizard from './wizard.gif';
 
 function App() {
   const [gifPosition, setGifPosition] = useState({ x: 0, y: 0 });
-  const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
-  const cursorMoveTimeout = useRef(null);
 
   const handleMouseMove = (event) => {
-    setCursorPosition({ x: event.clientX, y: event.clientY });
-    clearTimeout(cursorMoveTimeout.current);
-    cursorMoveTimeout.current = setTimeout(() => {
-      setGifPosition({ x: event.clientX, y: event.clientY });
-    }, 50); 
+    setGifPosition({ x: event.clientX, y: event.clientY });
   };
 
   return (
     <div className="App" onMouseMove={handleMouseMove}>
-      <Cursor x={cursorPosition.x} y={cursorPosition.y} />
+      <Cursor />
       <Gif
         src={wizard}
         alt="Moving GIF"
@@ -25,21 +19,20 @@ function App() {
           position: 'absolute',
           left: gifPosition.x,
           top: gifPosition.y,
-          transition: 'left 0.1s ease-out, top 0.1s ease-out', 
-          transform: 'translate(-50%, -50%) scaleX(-1)', 
           maxWidth: '100px', 
           maxHeight: '100px', 
           backgroundColor: 'transparent', 
+          transition: 'left 0.05s linear, top 0.05s linear', // Smooth transition
+          transform: 'translate(-50%, -50%) scaleX(-1)', // Flip horizontally
         }}
       />
     </div>
   );
 }
 
-const Cursor = ({ x, y }) => {
-  return <div className="cursor" style={{ left: x, top: y }}></div>;
+const Cursor = () => {
+  return <div className="cursor"></div>;
 };
-
 
 const Gif = ({ src, alt, style }) => {
   return <img src={src} alt={alt} style={style} />;
